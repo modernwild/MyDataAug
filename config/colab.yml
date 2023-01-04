@@ -1,0 +1,45 @@
+#与Python一样采用缩进区分层级，需要同一层级文件缩进相同，但是不能用TAB；
+#'#' 表示注释，从它开始到行尾都被忽略；
+#大小写敏感；
+#以‘-’开头会被转换为list；
+#包含':'转换为dictionary；
+#单引号内内容按照字符串输出，不会变成转义字符，双引号内内容存在转义字符会转换；
+
+#======base
+gpu_ids: '0'
+iteal: 30  # checkpoint存储间隔
+
+evaluate: false
+#eval_epoch: 3
+description: 'baseline'
+dataset_name: cub
+dataset_path: Datasets\CUB_200_2011
+#dataset_name: aircraft
+#dataset_path: /home/wangqt/workspace/Datasets/fgvc-aircraft-2013b
+
+epochs: 2
+batch_size: 16
+lr: 0.01
+lr_optimize: false
+cropsize: 224
+
+#======network:
+network: mynet
+arch: resnet50
+#resume: E:\2_workSpace\6_pycharm\MOFS\paper\logs\220312_1627_mpnnet5_cub224_grad\model_best.pth
+
+#=======================
+logdir: logs/
+num_workers: 12
+momentum: 0.9
+weight_decay: 0.0001
+scheduler_enable: false
+step_size: 30
+step_gamma: 0.1
+
+
+
+
+
+
+
