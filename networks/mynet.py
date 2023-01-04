@@ -2,7 +2,6 @@ from importlib import import_module
 
 import torch
 import torch.nn as nn
-from torchvision import models
 
 
 def l2_norm_v2(input):
@@ -30,10 +29,14 @@ class MyNet(nn.Module):
         num_class = opt.num_class
         # ----main branch----
         basenet = getattr(import_module('torchvision.models'), opt.arch)
-        if opt.arch == "resnet50":
-            basenet = basenet(weights=models.ResNet50_Weights.DEFAULT)
+        if opt.pretrain is not None:
+            weight_class = opt.pretrain.split('.')[0]
+            weight_name = opt.pretrain.split('.')[1]
+            pretrain_weights = getattr(import_module('torchvision.models'), weight_class)
+            pretrain_weights = getattr(pretrain_weights, weight_name)
         else:
-            basenet = basenet(pretrained=True)
+            pretrain_weights = None
+        basenet = basenet(weights=pretrain_weights)
 
         self.conv4 = nn.Sequential(*list(basenet.children())[:-3])
         self.conv5 = nn.Sequential(*list(basenet.children())[-3])

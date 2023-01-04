@@ -3,7 +3,7 @@ import os
 import shutil
 import torch
 from datetime import datetime
-from utils.conf import print_conf
+from core.conf import print_conf
 
 def load_pretrained(model, conf, logger):
     model.load_state_dict(torch.load(conf.pretrain))

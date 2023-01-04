@@ -55,7 +55,10 @@ def get_train_setting(model, conf):
     else:
         params = model.parameters()
     optimizer = torch.optim.SGD(params, lr=conf.lr, momentum=conf.momentum, weight_decay=conf.weight_decay)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=conf.step_size, gamma=conf.step_gamma)
+    if conf.step.enable:
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=conf.step.size, gamma=conf.step.gamma)
+    else:
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
 
     # criterion
     criterion = nn.CrossEntropyLoss().cuda()

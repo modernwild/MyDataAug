@@ -25,6 +25,8 @@ parser.add_argument('--cropsize', type=int, help='Visualise the network output')
 
 parser.add_argument('--logdir', type=str, help='Visualise the network output')
 parser.add_argument('--num_workers', type=int, help='Visualise the network output')
+
+parser.add_argument('--mixmethod', type=str, help='')
 args = parser.parse_args()
 
 

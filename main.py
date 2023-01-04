@@ -11,11 +11,8 @@ import datasets.helper
 import networks.helper
 import utils.draw
 import trainner
-from trainner.test import valid_one_epoch
-from trainner.train import train_one_epoch
-from utils.conf import get_config
-from utils.io import set_logger, load_checkpoint, save_checkpoint
-
+from utils.io import set_logger, save_checkpoint
+import core.conf
 import trainner.helper
 
 
@@ -63,7 +60,7 @@ def main(config):
         lr = optimizer.param_groups[0]['lr']
         logging.info('Epoch:\t{}\ttrain'.format(epoch + 1))
         _print_multi_res(train_res)
-        if config.scheduler_enable:
+        if config.step.enable:
             scheduler.step()
 
         if epoch >= eval_epoch:
@@ -99,8 +96,8 @@ def main(config):
 
 
 if __name__ == '__main__':
-    conf = utils.conf.get_config()
-    utils.conf.set_env(conf)  # 设置seed和并行参数
+    conf = core.conf.get_config()
+    core.conf.set_env(conf)  # 设置seed和并行参数
     utils.io.set_outdir(conf)  # 创建输出文件夹
 
     utils.io.set_logger(conf)  # 设置logger
